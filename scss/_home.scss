@@ -1,0 +1,21 @@
+main {
+    position: relative;
+
+    .container {
+        position: absolute;
+        top: -2.7rem;
+        left: 50%;
+        transform: translateX(-50%);
+
+        .task-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+
+            #input-task {
+                width: 100%;
+            }
+        }
+    }
+}
