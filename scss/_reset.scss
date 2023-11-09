@@ -5,8 +5,14 @@
     outline: none;
     text-decoration: none;
     list-style: none;
+    border: none;
 }
 
 html{
     font-size: 62.5%;
+}
+
+img{
+    max-width: 100%;
+    display: block;
 }
