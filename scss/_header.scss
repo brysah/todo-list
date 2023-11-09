@@ -1,0 +1,21 @@
+header {
+    background-color: black;
+    padding-top: 7.2rem;
+    min-height: 20rem;
+    .container { 
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        h1 {
+            color: $blue;
+            font-size: 4rem; 
+            font-weight: 900;
+            line-height: normal;
+            display: inline-block;
+            &.purple{
+                color: $purple-dark;
+            }
+        }
+    }
+}
