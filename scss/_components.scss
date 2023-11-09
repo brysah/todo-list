@@ -91,8 +91,29 @@
     &.done {
         span {
             text-decoration: line-through;
-            color:  $gray-300;   
+            color: $gray-300;
         }
+    }
+}
+
+.create {
+    display: flex;
+    gap: 0.8rem;
+    border-radius: 8px;
+    background: $blue-dark;
+    padding: 1.6rem;
+    align-items: center;
+    cursor: pointer;
+    transition: background .3s;
+
+    span {
+        color: $gray-100;
+        font-size: 1.4rem;
+        font-weight: 700;
+        line-height: 140%;
+    }
+    &:hover{
+        background: $blue;
     }
 }
 
