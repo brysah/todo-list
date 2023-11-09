@@ -1,4 +1,4 @@
-#task {
+#input-task {
     padding: 1.6rem;
     border-radius: 0.8rem;
     border: 1px solid $gray-700;
@@ -19,6 +19,52 @@
         border-radius: 8px;
         border: 1px solid $purple-dark;
         background: $gray-500;
+    }
+}
+
+.task {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.2rem;
+    padding: 1.6rem;
+    border-radius: 8px;
+    border: 1px solid $gray-400;
+    background: $gray-500;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.06);
+
+    span {
+        color: $gray-100;
+        font-size: 1.4rem;
+        font-weight: 400;
+        line-height: 140%;
+    }
+
+    #checkbox-task {
+        background-color: transparent;
+        appearance: none;
+        width: 1.8rem;
+        height: 1.8rem;
+        border-radius: 50%;
+        border: 2px solid $blue;
+        margin-top: 0.4rem;
+        cursor: pointer;
+        transition: all .3s;
+
+        &:checked {
+            background: url('/img/icon-check.png') no-repeat center center;
+            background-color: $purple-dark;
+            border: none;
+            &:hover{
+                background-color: $purple;
+                border: none;
+            }
+        }
+
+        &:hover{
+            background-color: rgba(31, 111, 158, 0.2);
+            border: 2px solid $blue-dark;
+        }
+
     }
 }
 
