@@ -7,15 +7,85 @@ main {
         left: 50%;
         transform: translateX(-50%);
 
-        .task-wrapper {
+        .task-creator-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
+            margin-bottom: 6.4rem;
 
             #input-task {
                 width: 100%;
             }
         }
+
+        .task-wrapper {
+            .info {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .task-counter {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.8rem;
+
+                    span {
+                        font-size: 1.4rem;
+                        font-weight: 700;
+
+                        &.blue {
+                            color: $blue;
+                        }
+
+                        &.purple {
+                            color: $purple;
+                        }
+
+                    }
+
+                    .counter {
+                        color: $gray-200;
+                        font-size: 1.2rem;
+                        font-weight: 700;
+                        padding: 0 0.8rem;
+                        background-color: $gray-400;
+                        border-radius: 99px;
+                    }
+                }
+            }
+
+            .all-tasks {
+                border-top: 1px solid $gray-400;
+                margin-top: 2.4rem;
+
+                .task-empty {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    margin: 0 auto;
+                    min-height: 24.4rem;
+
+                    img {
+                        margin-bottom: 1.6rem;
+                    }
+
+                    h2 {
+                        color: $gray-300;
+                        text-align: center;
+                        font-size: 1.6rem;
+                        font-weight: 400;
+                        line-height: 140%;
+
+                        &.bolder {  
+                            font-weight: 700; 
+                        }
+                    }
+
+                }
+            }
+        }
+
     }
 }

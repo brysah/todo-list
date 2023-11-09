@@ -23,7 +23,7 @@
     </header>
     <main id="app">
         <div class="container">
-            <div class="task-wrapper"> 
+            <div class="task-creator-wrapper"> 
                 <label for="task"></label>
                 <input type="text" name="task" id="input-task" placeholder="Adicione uma nova tarefa">
     
@@ -31,6 +31,25 @@
                     <span>Criar</span>
                     <img src="/img/icon-plus.png" alt="ícone adicionar">
                 </button>
+            </div>
+            <div class="task-wrapper">
+                <div class="info">
+                    <div class="task-counter">
+                        <span class="blue">Tarefas criadas</span>
+                        <div class="counter">0</div>
+                    </div>
+                    <div class="task-counter">
+                        <span class="purple">Concluídas</span>
+                        <div class="counter">0</div>
+                    </div>
+                </div>
+                <div class="all-tasks">
+                    <div class="task-empty">
+                        <img src="/img/clipboard.png" alt="ícone clipboard">
+                        <h2 class="bolder">Você ainda não tem tarefas cadastradas </h2>
+                        <h2>Crie tarefas e organize seus itens a fazer</h2>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
