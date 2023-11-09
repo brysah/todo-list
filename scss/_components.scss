@@ -1,0 +1,27 @@
+#task {
+    padding: 1.6rem;
+    border-radius: 0.8rem;
+    border: 1px solid $gray-700;
+    background: $gray-500;
+    color: $gray-100;
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 140%;
+
+    &::placeholder {
+        color: $gray-300;
+        font-size: 1.6rem;
+        font-weight: 400;
+        line-height: 140%;
+    }
+
+    &:focus {
+        border-radius: 8px;
+        border: 1px solid $purple-dark;
+        background: $gray-500;
+    }
+}
+
+body {
+    background-color: black;
+}
