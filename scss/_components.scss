@@ -37,6 +37,7 @@
         font-size: 1.4rem;
         font-weight: 400;
         line-height: 140%;
+        transition: all .3s;
     }
 
     #checkbox-task {
@@ -54,17 +55,44 @@
             background: url('/img/icon-check.png') no-repeat center center;
             background-color: $purple-dark;
             border: none;
-            &:hover{
+
+            &:hover {
                 background-color: $purple;
                 border: none;
             }
         }
 
-        &:hover{
+        &:hover {
             background-color: rgba(31, 111, 158, 0.2);
             border: 2px solid $blue-dark;
         }
 
+    }
+
+    .trash {
+        cursor: pointer;
+
+        svg {
+            transition: all .3s;
+        }
+
+        &:hover {
+            svg {
+                border-radius: 4px;
+                background: $gray-400;
+
+                path {
+                    fill: $danger;
+                }
+            }
+        }
+    }
+
+    &.done {
+        span {
+            text-decoration: line-through;
+            color:  $gray-300;   
+        }
     }
 }
 
