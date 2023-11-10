@@ -1,7 +1,15 @@
 export class Task {
     constructor(root) {
         this.root = document.querySelector(root);
-        this.entries = [];
+        this.load();
+    }
+
+    load() {
+        this.entries = JSON.parse(localStorage.getItem('task')) || [];
+    }
+
+    save(){
+        localStorage.setItem('task',JSON.stringify(this.entries));
     }
 
     add(value) {
@@ -12,11 +20,14 @@ export class Task {
         }
         this.entries = [value, ...this.entries];
         this.update();
+        this.save();
     }
+
     delete(task) {
-        const filteredEntries = this.entries.filter(entry =>  entry !== task )
+        const filteredEntries = this.entries.filter(entry => entry !== task)
         this.entries = filteredEntries;
         this.update();
+        this.save();
     }
 }
 
@@ -24,6 +35,7 @@ export class TaskView extends Task {
     constructor(root) {
         super(root);
         this.taskContainer = document.querySelector('.all-tasks');
+        this.update();
         this.onadd();
     }
     onadd() {
@@ -36,17 +48,23 @@ export class TaskView extends Task {
     }
     update() {
         this.removelAllTasks();
-        this.entries.forEach(entry => {
-            const task = this.createTask();
-            task.querySelector('span').textContent = entry;
-            task.querySelector('#checkbox-task').onclick = () => {
-                task.classList.toggle('done');
-            }
-            task.querySelector('.trash').onclick = () => {
-                this.delete(entry);
-            };
-            this.taskContainer.append(task);
-        })
+        if(this.entries.length > 0){
+            this.hideNoTasks();
+            this.entries.forEach(entry => {
+                const task = this.createTask();
+                task.querySelector('span').textContent = entry;
+                task.querySelector('#checkbox-task').onclick = () => {
+                    task.classList.toggle('done');
+                }
+                task.querySelector('.trash').onclick = () => {
+                    this.delete(entry);
+                };
+                this.taskContainer.append(task);
+            })
+        }
+        else{
+            this.showNoTasks();
+        }
     }
 
     createTask() {
@@ -69,6 +87,20 @@ export class TaskView extends Task {
         return task;
     }
 
+    showNoTasks(){
+        const empty = document.createElement('div');
+        empty.classList.add('task-empty');
+        empty.innerHTML = ` 
+            <img src="/img/clipboard.png" alt="ícone clipboard">
+            <h2 class="bolder">Você ainda não tem tarefas cadastradas </h2>
+            <h2>Crie tarefas e organize seus itens a fazer</h2> `;
+        this.taskContainer.append(empty);
+    }
+
+    hideNoTasks(){
+        const messageEmpty = document.querySelector('.task-empty');
+        if(messageEmpty) messageEmpty.remove(); 
+    }
 
     removelAllTasks() {
         this.taskContainer.querySelectorAll('.task').forEach(task => {
