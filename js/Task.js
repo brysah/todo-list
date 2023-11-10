@@ -8,19 +8,25 @@ export class Task {
         this.entries = JSON.parse(localStorage.getItem('task')) || [];
     }
 
-    save(){
-        localStorage.setItem('task',JSON.stringify(this.entries));
+    save() {
+        localStorage.setItem('task', JSON.stringify(this.entries));
     }
 
     add(value) {
-        const taskExists = this.entries.find(task => task === value);
-        if (taskExists) {
-            console.log('Task already exist');
-            return;
+        try {
+            const taskExists = this.entries.find(task => task === value);
+            if (taskExists) {
+                throw new Error('Task already exist'); 
+            }
+            if(value.trim() === ''){
+                throw new Error('Empty task');
+            }
+            this.entries = [value, ...this.entries];
+            this.update();
+            this.save();
+        } catch (error) { 
+            this.inputError(error.message);
         }
-        this.entries = [value, ...this.entries];
-        this.update();
-        this.save();
     }
 
     delete(task) {
@@ -37,18 +43,26 @@ export class TaskView extends Task {
         this.taskContainer = document.querySelector('.all-tasks');
         this.update();
         this.onadd();
+        this.onfocus();
     }
     onadd() {
         const addButton = document.querySelector('.create');
         addButton.onclick = () => {
             const { value } = document.getElementById('input-task');
-            console.log(value);
             this.add(value);
         }
     }
+
+    onfocus() {
+        const input = document.querySelector('#input-task');
+        input.onchange = () => {
+            document.querySelector('.message-error').classList.remove('show');
+        }
+    }
+
     update() {
         this.removelAllTasks();
-        if(this.entries.length > 0){
+        if (this.entries.length > 0) {
             this.hideNoTasks();
             this.entries.forEach(entry => {
                 const task = this.createTask();
@@ -62,7 +76,7 @@ export class TaskView extends Task {
                 this.taskContainer.append(task);
             })
         }
-        else{
+        else {
             this.showNoTasks();
         }
     }
@@ -87,7 +101,7 @@ export class TaskView extends Task {
         return task;
     }
 
-    showNoTasks(){
+    showNoTasks() {
         const empty = document.createElement('div');
         empty.classList.add('task-empty');
         empty.innerHTML = ` 
@@ -97,9 +111,15 @@ export class TaskView extends Task {
         this.taskContainer.append(empty);
     }
 
-    hideNoTasks(){
+    hideNoTasks() {
         const messageEmpty = document.querySelector('.task-empty');
-        if(messageEmpty) messageEmpty.remove(); 
+        if (messageEmpty) messageEmpty.remove();
+    }
+
+    inputError(errorMessage) {
+        const error = document.querySelector('.message-error');
+        error.textContent = errorMessage;
+        error.classList.add('show');
     }
 
     removelAllTasks() {

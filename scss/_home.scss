@@ -12,14 +12,24 @@ main {
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
-            margin-bottom: 6.4rem;
 
             #input-task {
                 width: 100%;
             }
         }
-
+        p{
+            color: $gray-100;
+            font-size: 1.4rem;
+            margin: 1.1rem 0 0 1.1rem;
+            opacity: 0;
+            transition: opacity .3s;
+            &.show{
+                opacity: 1;
+            }
+        }
         .task-wrapper {
+            
+            margin-top: 6.4rem;
             .info {
                 display: flex;
                 align-items: center;
