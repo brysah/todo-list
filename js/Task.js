@@ -13,7 +13,11 @@ export class Task {
         this.entries = [value, ...this.entries];
         this.update();
     }
-
+    delete(task) {
+        const filteredEntries = this.entries.filter(entry =>  entry !== task )
+        this.entries = filteredEntries;
+        this.update();
+    }
 }
 
 export class TaskView extends Task {
@@ -35,6 +39,12 @@ export class TaskView extends Task {
         this.entries.forEach(entry => {
             const task = this.createTask();
             task.querySelector('span').textContent = entry;
+            task.querySelector('#checkbox-task').onclick = () => {
+                task.classList.toggle('done');
+            }
+            task.querySelector('.trash').onclick = () => {
+                this.delete(entry);
+            };
             this.taskContainer.append(task);
         })
     }
@@ -58,6 +68,7 @@ export class TaskView extends Task {
         </div> `
         return task;
     }
+
 
     removelAllTasks() {
         this.taskContainer.querySelectorAll('.task').forEach(task => {
