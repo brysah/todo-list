@@ -12,25 +12,41 @@ export class Task {
         localStorage.setItem('task', JSON.stringify(this.entries));
     }
 
-    add(value) {
+    countCheck() {
+        let total = this.entries.reduce(function (ac, curr) {
+            if (curr.isChecked) ac++;
+            return ac;
+        }, 0);
+        return total;
+    }
+
+    updateIsChecked(entry) { 
+        if (this.entries.find(item => item.value === entry.value).isChecked) {
+            this.entries.find(item => item.value === entry.value).isChecked = false
+        }
+        else this.entries.find(item => item.value === entry.value).isChecked = true;
+        this.save();
+    }
+
+    add(task) {
         try {
-            const taskExists = this.entries.find(task => task === value);
+            const taskExists = this.entries.find(entry => entry.value === task.value);
             if (taskExists) {
-                throw new Error('Task already exist'); 
+                throw new Error('Task already exist');
             }
-            if(value.trim() === ''){
+            if (task.value.trim() === '') {
                 throw new Error('Empty task');
             }
-            this.entries = [value, ...this.entries];
+            this.entries = [task, ...this.entries];
             this.update();
             this.save();
-        } catch (error) { 
+        } catch (error) {
             this.inputError(error.message);
         }
     }
 
     delete(task) {
-        const filteredEntries = this.entries.filter(entry => entry !== task)
+        const filteredEntries = this.entries.filter(entry => entry !== task);
         this.entries = filteredEntries;
         this.update();
         this.save();
@@ -49,7 +65,8 @@ export class TaskView extends Task {
         const addButton = document.querySelector('.create');
         addButton.onclick = () => {
             const { value } = document.getElementById('input-task');
-            this.add(value);
+            const task = { value: value, isChecked: false };
+            this.add(task);
         }
     }
 
@@ -60,26 +77,62 @@ export class TaskView extends Task {
         }
     }
 
+    oncheck(task, entry) { 
+        const counter = document.querySelector('#counter-concluded>.counter');
+        task.onclick = () => {
+            if (task.classList.contains('done')) {
+                task.classList.remove('done'); 
+                this.updateIsChecked(entry);
+                let ac = this.countCheck()  ;
+                counter.textContent = `${ac} de ${this.entries.length}`;
+            }
+            else {
+                task.classList.add('done'); 
+                this.updateIsChecked(entry);
+                let ac = this.countCheck()  ; 
+                counter.textContent = `${ac} de ${this.entries.length}`;
+
+            }
+        }
+    }
+
     update() {
         this.removelAllTasks();
         if (this.entries.length > 0) {
             this.hideNoTasks();
-            this.entries.forEach(entry => {
+
+            this.entries.forEach(entry => {  
                 const task = this.createTask();
-                task.querySelector('span').textContent = entry;
-                task.querySelector('#checkbox-task').onclick = () => {
-                    task.classList.toggle('done');
+                task.querySelector('span').textContent = entry.value;
+                task.querySelector('#checkbox-task').onclick = () => { this.oncheck(task, entry) }
+
+                if (entry.isChecked) {
+                    task.classList.add('done');
+                    task.querySelector('#checkbox-task').setAttribute('checked', true);
                 }
+
                 task.querySelector('.trash').onclick = () => {
                     this.delete(entry);
                 };
+
                 this.taskContainer.append(task);
             })
         }
         else {
             this.showNoTasks();
         }
+
+        this.updateCount();
     }
+
+    updateCount() {
+        const all = document.querySelector('#counter-all>.counter');
+        const done = document.querySelector('#counter-concluded>.counter');
+        const ac = this.countCheck();
+        all.textContent = this.entries.length;
+        done.textContent = `${ac} de ${this.entries.length}`;
+    }
+
 
     createTask() {
         const task = document.createElement('div');
