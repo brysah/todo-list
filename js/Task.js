@@ -158,7 +158,7 @@ export class TaskView extends Task {
         const empty = document.createElement('div');
         empty.classList.add('task-empty');
         empty.innerHTML = ` 
-            <img src="../img/clipboard.png" alt="ícone clipboard">
+            <img src="./img/clipboard.png" alt="ícone clipboard">
             <h2 class="bolder">Você ainda não tem tarefas cadastradas </h2>
             <h2>Crie tarefas e organize seus itens a fazer</h2> `;
         this.taskContainer.append(empty);

@@ -52,7 +52,7 @@
         transition: all .3s;
 
         &:checked {
-            background: url('/img/icon-check.png') no-repeat center center;
+            background: url('../img/icon-check.png') no-repeat center center;
             background-color: $purple-dark;
             border: none;
 
