@@ -180,4 +180,4 @@ export class TaskView extends Task {
             task.remove();
         })
     }
-}
+} 
